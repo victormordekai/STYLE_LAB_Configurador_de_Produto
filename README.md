@@ -1,21 +1,41 @@
-# LOCK{AID GABARDINE — STYLE LAB MVP
+# LOCK{AID — STYLE LAB MVP v0.2
 
-Protótipo de UX/UI para testar a transformação do antigo simulador em **STYLE LAB — Configurador de Produto**.
+Revisão UX/UI do MVP com direção visual esportiva/editorial RETEAR/GABARDINE.
 
-## MVP validável
-- biblioteca inicial extraída de `MRP_DATA` do arquivo de teste;
-- seleção de base industrial;
-- mockup vetorial SVG de camisa e calção;
-- gola, manga, caimento e recorte do calção;
-- cores e elementos de personalização;
-- upload de referência visual;
-- validação preliminar;
-- versionamento e LOCK;
-- exportação SVG do layout;
-- exportação JSON do projeto.
+## Mudanças principais
 
-## Limites deliberados
-Ainda não implementa IA de interpretação, Rule Engine completo, FT/OP automática, gradação, CTP/ATP, calendário ou integrações. O objetivo é validar a experiência e o domínio visual antes de conectar o núcleo industrial já prototipado.
+- interface premium/editorial, com composição assimétrica e tipografia de alto contraste;
+- canvas central tratado como showroom de produto;
+- redução de aparência de "painel administrativo";
+- biblioteca de objetos para patch, patrocínio, nome e numeração;
+- drag & drop de objetos para dentro da camisa;
+- objetos podem ser reposicionados por pointer drag;
+- seleção e exclusão de objetos;
+- upload de referência como camada de consulta;
+- mockup SVG parametrizado;
+- LOCK e estado do projeto;
+- exportação JSON e SVG.
 
-## Execução
-Suba a pasta para GitHub e ative GitHub Pages. Como `library.json` é carregado por `fetch`, não abra apenas via `file://`.
+## Arquitetura
+
+`index.html` — estrutura da experiência
+
+`css/style.css` — sistema visual
+
+`js/app.js` — estado, configuração, drag/drop e exportação
+
+`data/library.json` — biblioteca industrial inicial
+
+## Próxima camada
+
+O próximo incremento não deve ser simplesmente "mais efeitos visuais". O salto correto é transformar o objeto arrastado em componente semântico:
+
+PATCH → posição → tamanho → aplicação → regra industrial
+
+PATROCÍNIO → posição → escala → técnica → área permitida
+
+NOME → tipografia → posição → limite
+
+NÚMERO → tipografia → posição → limite → gradação
+
+Isso prepara a ponte entre UX/UI e o futuro Rule Engine / Motor de FT.

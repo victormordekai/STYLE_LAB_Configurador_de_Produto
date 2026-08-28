@@ -1,5 +1,201 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>STYLE LAB — Configurador de Produto</title><link rel="stylesheet" href="css/style.css"></head><body>
-<header><div><small>RETEAR / GABARDINE / LOCK{AID</small><h1>STYLE LAB</h1><p>Configurador de Produto · MVP</p></div><div class="pid"><span>PROJETO</span><b id="project">SL-0001</b><em id="badge">V01 · DRAFT</em></div></header>
-<main><aside class="panel left"><section><h3>01 · PRODUTO</h3><label>Base industrial<select id="product"></select></label><div id="meta" class="card"></div></section><section><h3>02 · CONSTRUÇÃO</h3><div class="grid"><label>Gola<select id="collar"><option value="crew">Redonda</option><option value="v">V</option><option value="mandarin">Mandarim</option></select></label><label>Manga<select id="sleeve"><option value="short">Curta</option><option value="raglan">Raglan</option></select></label><label>Caimento<select id="fit"><option value="regular">Regular</option><option value="athletic">Athletic</option><option value="loose">Loose</option></select></label><label>Calção<select id="shorts"><option value="basic">Base</option><option value="side">Recorte lateral</option></select></label></div></section><section><h3>03 · ARTE</h3><label>Cor base<input id="base" type="color" value="#111111"></label><label>Cor secundária<input id="secondary" type="color" value="#ffffff"></label><label>Referência<input id="reference" type="file" accept="image/*"></label><small class="hint">A referência permanece preservada como camada de consulta. O mockup é SVG e pode ser exportado como vetor.</small></section><section><h3>04 · ELEMENTOS</h3><label><input id="number" type="checkbox" checked> Numeração</label><label><input id="name" type="checkbox" checked> Nome</label><label><input id="shield" type="checkbox" checked> Escudo</label><label><input id="sponsor" type="checkbox"> Patrocinador</label></section><section><h3>05 · LOCK</h3><button id="lock" class="primary">LOCK CONFIGURAÇÃO</button><button id="version">CRIAR VERSÃO</button></section></aside>
-<section class="canvas"><div class="canvasHead"><div><small>PREVIEW VETORIAL</small><h2 id="title">Camisa + Calção</h2></div><strong id="status">DRAFT</strong></div><div class="stage"><div id="ref" class="ref hidden"></div><div class="kit"><div class="garment"><span>CAMISA</span><svg id="shirt" viewBox="0 0 500 620" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="clip"><path d="M175 88L95 135 28 245l84 47 39-64v337h198V228l39 64 84-47-67-110-80-47q-75 32-150 0Z"/></clipPath></defs><path id="body" d="M175 88L95 135 28 245l84 47 39-64v337h198V228l39 64 84-47-67-110-80-47q-75 32-150 0Z"/><path id="panel" d="M175 88q75 32 150 0l24 140H151Z"/><g clip-path="url(#clip)"><path d="M35 210L465 420" stroke-width="45" fill="none"/><path d="M80 500L430 150" stroke-width="18" fill="none" opacity=".4"/></g><path id="crew" d="M198 91q52 39 104 0" fill="none" stroke-width="18" stroke-linecap="round"/><path id="v" d="M198 91l52 54 52-54" fill="none" stroke-width="18"/><path id="mandarin" d="M205 91q45 35 90 0l-7 34q-38 26-76 0Z"/><g id="details"><text id="n" x="250" y="280" text-anchor="middle">ATLETA</text><text id="num" x="250" y="415" text-anchor="middle">10</text><rect id="crest" x="180" y="175" width="42" height="52" rx="5"/><text id="sp" x="250" y="505" text-anchor="middle">SPONSOR</text></g><g id="rag"><path d="M95 135l56 93M405 135l-56 93" fill="none" stroke-width="18"/></g></svg></div><div class="garment"><span>CALÇÃO</span><svg id="shortsvg" viewBox="0 0 420 500" xmlns="http://www.w3.org/2000/svg"><path id="shortbody" d="M92 48h236l-13 137-15 260h-70l-20-200-20 200h-70l-15-260Z"/><path id="shortpanel" d="M105 185l105 60 105-60-7 135-78-15h-40l-78 15Z"/><path id="recut" d="M92 48l118 197L328 48" fill="none" stroke-width="22"/><text x="210" y="360" text-anchor="middle">10</text></svg></div></div></div><footer><div><small>OUTPUT</small><b id="output">Projeto visual preliminar</b></div><button id="svg">EXPORTAR SVG</button><button id="json">EXPORTAR JSON</button></footer></section>
-<aside class="panel right"><section><h3>PROJETO</h3><dl><dt>Status</dt><dd id="istatus">DRAFT</dd><dt>Versão</dt><dd id="iver">V01</dd><dt>Base</dt><dd id="ibase">—</dd></dl></section><section><h3>CONFIGURAÇÃO</h3><dl id="config"></dl></section><section><h3>VALIDAÇÃO</h3><div id="validation" class="card"></div></section><section><h3>REFERÊNCIA</h3><div id="refinfo" class="card">Nenhuma referência carregada.</div></section></aside></main><script src="js/app.js"></script></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080808">
+  <title>STYLE LAB — LOCK{AID</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#">
+        <span class="brand-mark">R/</span>
+        <span>
+          <small>RETEAR / GABARDINE</small>
+          <strong>STYLE LAB</strong>
+        </span>
+      </a>
+      <nav class="topnav">
+        <span class="active">CONFIGURADOR</span>
+        <span>PROJETO</span>
+        <span>INDUSTRIAL</span>
+      </nav>
+      <div class="project">
+        <small>LOCK{AID</small>
+        <b id="project">SL-0001</b>
+        <em id="badge">V01 · DRAFT</em>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="sidebar left">
+        <div class="side-intro">
+          <span class="kicker">PRODUCT SYSTEM / 01</span>
+          <h1>Construa<br><i>o produto.</i></h1>
+          <p>Da referência ao projeto industrial, em uma única superfície.</p>
+        </div>
+
+        <section class="tool-section">
+          <div class="section-head"><span>01</span><h2>BASE</h2></div>
+          <label>Modelagem industrial
+            <select id="product"></select>
+          </label>
+          <div id="meta" class="meta"></div>
+        </section>
+
+        <section class="tool-section">
+          <div class="section-head"><span>02</span><h2>CONSTRUÇÃO</h2></div>
+          <div class="field-grid">
+            <label>Gola<select id="collar">
+              <option value="crew">Redonda</option><option value="v">V</option><option value="mandarin">Mandarim</option>
+            </select></label>
+            <label>Manga<select id="sleeve">
+              <option value="short">Curta</option><option value="raglan">Raglan</option>
+            </select></label>
+            <label>Caimento<select id="fit">
+              <option value="regular">Regular</option><option value="athletic">Athletic</option><option value="loose">Loose</option>
+            </select></label>
+            <label>Calção<select id="shorts">
+              <option value="basic">Base</option><option value="side">Recorte lateral</option>
+            </select></label>
+          </div>
+        </section>
+
+        <section class="tool-section">
+          <div class="section-head"><span>03</span><h2>IDENTIDADE</h2></div>
+          <div class="color-row">
+            <label>BASE<input id="base" type="color" value="#101010"></label>
+            <label>SECUNDÁRIA<input id="secondary" type="color" value="#f2f2ee"></label>
+          </div>
+          <label class="upload">
+            <span>REFERÊNCIA DO CLIENTE</span>
+            <input id="reference" type="file" accept="image/*">
+            <strong>ARRASTE OU CLIQUE PARA CARREGAR</strong>
+            <small>PNG · JPG · WEBP</small>
+          </label>
+        </section>
+
+        <section class="tool-section">
+          <div class="section-head"><span>04</span><h2>OBJETOS</h2></div>
+          <p class="section-note">Arraste elementos da biblioteca para o mockup. Eles permanecem editáveis durante o projeto.</p>
+          <div class="object-library" id="objectLibrary">
+            <button class="asset-chip" draggable="true" data-type="patch" data-label="PATCH">＋ <span>PATCH</span><b>ESCUDO</b></button>
+            <button class="asset-chip" draggable="true" data-type="sponsor" data-label="SPONSOR">＋ <span>PATROCÍNIO</span><b>MARCA</b></button>
+            <button class="asset-chip" draggable="true" data-type="name" data-label="ATLETA">＋ <span>NOME</span><b>TIPOGRAFIA</b></button>
+            <button class="asset-chip" draggable="true" data-type="number" data-label="10">＋ <span>NÚMERO</span><b>NUMERAÇÃO</b></button>
+          </div>
+          <button class="ghost" id="clearObjects">LIMPAR OBJETOS</button>
+        </section>
+
+        <button id="lock" class="lock-button"><span>LOCK CONFIGURAÇÃO</span><b>↗</b></button>
+      </aside>
+
+      <section class="stage-area">
+        <div class="stage-top">
+          <div>
+            <span class="kicker">STYLE LAB / LIVE PREVIEW</span>
+            <h2 id="title">CAMISA + CALÇÃO</h2>
+          </div>
+          <div class="stage-tools">
+            <button class="tool active" id="frontView">FRENTE</button>
+            <button class="tool">COSTAS</button>
+            <span class="divider"></span>
+            <button class="tool" id="resetView">RESET</button>
+          </div>
+        </div>
+
+        <div class="canvas">
+          <div class="canvas-grid"></div>
+          <div id="ref" class="reference hidden"></div>
+          <div class="canvas-label top-left">VECTOR / 01</div>
+          <div class="canvas-label bottom-left">DRAG OBJECTS INTO GARMENT</div>
+
+          <div class="kit" id="dropZone">
+            <div class="garment-wrap shirt-wrap">
+              <span class="garment-tag">SHIRT / A</span>
+              <svg id="shirt" viewBox="0 0 500 620" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <clipPath id="clip"><path d="M175 88L95 135 28 245l84 47 39-64v337h198V228l39 64 84-47-67-110-80-47q-75 32-150 0Z"/></clipPath>
+                </defs>
+                <path id="body" d="M175 88L95 135 28 245l84 47 39-64v337h198V228l39 64 84-47-67-110-80-47q-75 32-150 0Z"/>
+                <path id="panel" d="M175 88q75 32 150 0l24 140H151Z"/>
+                <g clip-path="url(#clip)" class="graphic">
+                  <path d="M35 210L465 420" class="stripe"/>
+                  <path d="M80 500L430 150" class="stripe-thin"/>
+                </g>
+                <path id="crew" d="M198 91q52 39 104 0" fill="none"/>
+                <path id="v" d="M198 91l52 54 52-54" fill="none"/>
+                <path id="mandarin" d="M205 91q45 35 90 0l-7 34q-38 26-76 0Z"/>
+                <g id="builtIn">
+                  <text id="n" x="250" y="280" text-anchor="middle">ATLETA</text>
+                  <text id="num" x="250" y="415" text-anchor="middle">10</text>
+                  <rect id="crest" x="180" y="175" width="42" height="52" rx="5"/>
+                  <text id="sp" x="250" y="505" text-anchor="middle">SPONSOR</text>
+                </g>
+                <g id="rag"><path d="M95 135l56 93M405 135l-56 93" fill="none"/></g>
+              </svg>
+              <div class="drop-hint">SOLTE AQUI</div>
+              <div id="shirtObjects" class="placed-objects"></div>
+            </div>
+
+            <div class="garment-wrap shorts-wrap">
+              <span class="garment-tag">SHORT / B</span>
+              <svg id="shortsvg" viewBox="0 0 420 500" xmlns="http://www.w3.org/2000/svg">
+                <path id="shortbody" d="M92 48h236l-13 137-15 260h-70l-20-200-20 200h-70l-15-260Z"/>
+                <path id="shortpanel" d="M105 185l105 60 105-60-7 135-78-15h-40l-78 15Z"/>
+                <path id="recut" d="M92 48l118 197L328 48" fill="none"/>
+                <text x="210" y="360" text-anchor="middle">10</text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="floating-status"><span class="dot"></span><span id="liveStatus">LIVE / VECTOR</span></div>
+        </div>
+
+        <footer class="output">
+          <div class="output-copy"><span>OUTPUT / CURRENT STATE</span><strong id="output">Projeto visual preliminar</strong></div>
+          <div class="output-actions">
+            <button id="json">EXPORTAR PROJETO <b>JSON</b></button>
+            <button id="svg">EXPORTAR <b>SVG</b> ↗</button>
+          </div>
+        </footer>
+      </section>
+
+      <aside class="sidebar right">
+        <div class="inspector-head">
+          <span class="kicker">INSPECTOR / 03</span>
+          <h2>PROJECT<br><i>STATE.</i></h2>
+        </div>
+        <section class="state-card">
+          <div><span>STATUS</span><b id="istatus">DRAFT</b></div>
+          <div><span>VERSION</span><b id="iver">V01</b></div>
+          <div><span>BASE SKU</span><b id="ibase">—</b></div>
+        </section>
+
+        <section class="inspector-section">
+          <div class="section-head"><span>05</span><h2>CONFIGURAÇÃO</h2></div>
+          <dl id="config"></dl>
+        </section>
+
+        <section class="inspector-section">
+          <div class="section-head"><span>06</span><h2>VALIDAÇÃO</h2></div>
+          <div id="validation" class="validation"></div>
+        </section>
+
+        <section class="inspector-section">
+          <div class="section-head"><span>07</span><h2>REFERÊNCIA</h2></div>
+          <div id="refinfo" class="reference-info">Nenhuma referência carregada.</div>
+        </section>
+
+        <div class="side-footer">
+          <span>LOCK{AID / GABARDINE</span>
+          <b>PRODUCT SYSTEM · MVP 0.2</b>
+        </div>
+      </aside>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>
