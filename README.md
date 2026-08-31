@@ -1,41 +1,79 @@
-# LOCK{AID — STYLE LAB MVP v0.2
+# STYLE LAB MVP V0.6 — Continuous Garment + Surface Design Engine
 
-Revisão UX/UI do MVP com direção visual esportiva/editorial RETEAR/GABARDINE.
+## Arquivo principal atualizado
 
-## Mudanças principais
+A evolução desta versão está concentrada em `script.js`.
 
-- interface premium/editorial, com composição assimétrica e tipografia de alto contraste;
-- canvas central tratado como showroom de produto;
-- redução de aparência de "painel administrativo";
-- biblioteca de objetos para patch, patrocínio, nome e numeração;
-- drag & drop de objetos para dentro da camisa;
-- objetos podem ser reposicionados por pointer drag;
-- seleção e exclusão de objetos;
-- upload de referência como camada de consulta;
-- mockup SVG parametrizado;
-- LOCK e estado do projeto;
-- exportação JSON e SVG.
+O novo motor JavaScript foi reescrito para separar claramente:
 
-## Arquitetura
+1. **Product Model** — geometria continua em `garment-model/garment-model.js`.
+2. **Surface Engine** — frente e costas são superfícies físicas independentes.
+3. **Artwork Engine** — cada elemento pertence semanticamente a uma superfície.
+4. **Clip Engine** — toda a arte é renderizada dentro de um grupo SVG recortado pela silhueta da peça.
+5. **Interaction Engine** — seleção, drag, transferência entre frente/costas, escala e rotação.
+6. **Layer Engine** — visibilidade, bloqueio, duplicação, exclusão e ordenação.
+7. **History Engine** — undo/redo por snapshots transacionais.
+8. **Export Engine** — SVG, PNG e JSON.
+9. **AI Contract** — API pública `window.StyleLabDesignEngine.applyDesignOperations()` para futura integração segura com backend/LLM.
 
-`index.html` — estrutura da experiência
+## Regra estrutural principal
 
-`css/style.css` — sistema visual
+Nenhum elemento visual é mais tratado apenas como um objeto solto do canvas.
 
-`js/app.js` — estado, configuração, drag/drop e exportação
+Cada elemento possui:
 
-`data/library.json` — biblioteca industrial inicial
+```js
+{
+  id: "...",
+  target: "front" | "back",
+  type: "pattern" | "text" | "number" | "sponsor" | "shape" | "image"
+}
+```
 
-## Próxima camada
+Na renderização, os elementos são agrupados assim:
 
-O próximo incremento não deve ser simplesmente "mais efeitos visuais". O salto correto é transformar o objeto arrastado em componente semântico:
+```text
+artworkLayer
+├── artwork-front   → clip-path(front shirt silhouette)
+└── artwork-back    → clip-path(back shirt silhouette)
+```
 
-PATCH → posição → tamanho → aplicação → regra industrial
+Assim, mesmo que um padrão, imagem ou texto ultrapasse geometricamente a camisa, a parte externa não é exibida.
 
-PATROCÍNIO → posição → escala → técnica → área permitida
+## IA / LLM
 
-NOME → tipografia → posição → limite
+A página não deve expor uma API key no navegador.
 
-NÚMERO → tipografia → posição → limite → gradação
+A futura integração recomendada é:
 
-Isso prepara a ponte entre UX/UI e o futuro Rule Engine / Motor de FT.
+```text
+Browser → Backend seguro → LLM
+                  ↓
+          JSON de operações
+                  ↓
+      StyleLabDesignEngine
+                  ↓
+      SVG editável e recortado
+```
+
+Exemplo de operação:
+
+```js
+window.StyleLabDesignEngine.applyDesignOperations([
+  { type: "setColor", slot: "primary", value: "#102A72" },
+  {
+    type: "addElement",
+    element: {
+      type: "pattern",
+      name: "FAIXAS DIAGONAIS",
+      target: "front",
+      x: 150,
+      y: 170,
+      width: 300,
+      height: 120,
+      rotation: -10,
+      data: { kind: "slashes" }
+    }
+  }
+]);
+```

@@ -1,0 +1,16 @@
+/* STYLE LAB — Technical Garment Model V2 */
+:root{--gm-outline:#1f2730;--gm-seam:#2b333c}
+.garment-model{overflow:visible}
+.garment-model .gm-silhouette{fill:var(--gm-primary,#173f8f);stroke:var(--gm-outline);stroke-width:3;stroke-linejoin:round}
+.garment-model .gm-panel-fill{fill:var(--gm-primary,#173f8f);stroke:none;pointer-events:none}
+.garment-model .gm-torso-panel{opacity:.985}
+.garment-model .gm-left-sleeve-panel,.garment-model .gm-right-sleeve-panel{opacity:.96}
+.garment-model .gm-seam{fill:none;stroke:var(--gm-seam);stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1.5 2.2;opacity:.88;pointer-events:none}
+.garment-model .gm-panel{fill:none;stroke:#101823;stroke-width:2.15;stroke-linecap:round;stroke-linejoin:round;opacity:.8;pointer-events:none}
+.garment-model .gm-collar-outer{fill:#111923;stroke:var(--gm-outline);stroke-width:2.4}
+.garment-model .gm-collar-inner{fill:#d9dde3;stroke:var(--gm-outline);stroke-width:1.6}
+.garment-model .gm-zone{cursor:pointer}
+.garment-model[data-fit="slim"]{transform-box:fill-box;transform-origin:center top}
+.garment-model[data-fit="slim"] .gm-silhouette,.garment-model[data-fit="slim"] .gm-panel-fill{ }
+.garment-model[data-collar="v"] .gm-collar-round{display:none}
+.garment-model[data-collar="round"] .gm-collar-v{display:none}
