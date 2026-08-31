@@ -1,0 +1,2 @@
+/* STYLE LAB — Modeling Library. Kept separate so product catalog UI can evolve independently. */
+.modeling-picker{display:grid;gap:6px}.modeling-picker select{background:#111b26;border:1px solid #314152;color:#dce3ea;border-radius:4px;padding:9px;font-size:10px}
