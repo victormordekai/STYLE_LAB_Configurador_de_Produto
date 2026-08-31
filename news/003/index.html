@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="STYLE LAB MVP V0.3 - configurador visual de produtos esportivos" />
+  <title>STYLE LAB — Configurador de Produto</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="garment-model/garment-model.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span></span></div>
+        <div>
+          <div class="brand-name">STYLE LAB</div>
+          <div class="brand-subtitle">CONFIGURADOR DE PRODUTO</div>
+        </div>
+      </div>
+
+      <nav class="workflow" aria-label="Fluxo de configuração">
+        <button class="step active" data-step="1"><b>01</b><span>PRODUTO</span></button>
+        <button class="step" data-step="2"><b>02</b><span>CONSTRUÇÃO</span></button>
+        <button class="step" data-step="3"><b>03</b><span>CORES</span></button>
+        <button class="step active-step" data-step="4"><b>04</b><span>ELEMENTOS</span></button>
+        <button class="step" data-step="5"><b>05</b><span>FINALIZAR</span></button>
+      </nav>
+
+      <div class="project-meta">
+        <div class="meta-item"><small>PROJETO</small><strong id="projectCode">SL-001</strong></div>
+        <div class="meta-item"><small>VERSÃO</small><strong>V0.3</strong></div>
+        <div class="status">DRAFT <i></i></div>
+        <button id="undoBtn" class="icon-btn" title="Desfazer" aria-label="Desfazer">↶</button>
+        <button id="redoBtn" class="icon-btn" title="Refazer" aria-label="Refazer">↷</button>
+        <button class="icon-btn" title="Menu" aria-label="Menu">☰</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="sidebar left-panel" aria-label="Configurações do produto">
+        <section class="panel-section">
+          <h2>PRODUTO BASE</h2>
+          <div class="product-card">
+            <div class="mini-product">
+              <svg viewBox="0 0 100 130" aria-hidden="true">
+                <path class="mini-primary" d="M30 12 L45 5 L55 5 L70 12 L85 20 L78 48 L67 44 L65 85 L35 85 L33 44 L22 48 L15 20 Z"/>
+                <path class="mini-secondary" d="M35 85 L65 85 L70 120 L30 120 Z"/>
+              </svg>
+            </div>
+            <div class="product-info">
+              <strong>CAM-BAS-001</strong>
+              <span>CAMISA BÁSICA 001</span>
+              <span>SLIM FIT</span>
+              <button id="changeProductBtn">ALTERAR</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel-section">
+          <h2>CONSTRUÇÃO</h2>
+          <div class="config-list">
+            <label>GOLA <select id="collarSelect"><option>REDONDA</option><option>V</option><option>POLO</option></select></label>
+            <label>MANGA <select id="sleeveSelect"><option>CURTA</option><option>LONGA</option></select></label>
+            <label>CAIMENTO <select id="fitSelect"><option>REGULAR</option><option>SLIM FIT</option><option>RELAXED</option></select></label>
+            <label>CALÇÃO <select id="shortSelect"><option>BASE</option><option>CURTO</option><option>LONGO</option></select></label>
+          </div>
+        </section>
+
+        <section class="panel-section">
+          <h2>CORES</h2>
+          <div class="color-control">
+            <label for="primaryColor">COR PRINCIPAL</label>
+            <input id="primaryColor" type="color" value="#0A2D8F" />
+            <code id="primaryHex">#0A2D8F</code>
+          </div>
+          <div class="color-control">
+            <label for="secondaryColor">COR SECUNDÁRIA</label>
+            <input id="secondaryColor" type="color" value="#E31E3F" />
+            <code id="secondaryHex">#E31E3F</code>
+          </div>
+          <div class="color-control">
+            <label for="detailColor">COR DETALHES</label>
+            <input id="detailColor" type="color" value="#00C3FF" />
+            <code id="detailHex">#00C3FF</code>
+          </div>
+        </section>
+
+        <section class="panel-section">
+          <h2>REFERÊNCIA</h2>
+          <label class="upload-box" for="referenceInput">
+            <input id="referenceInput" type="file" accept="image/png,image/jpeg,image/webp" hidden />
+            <span class="upload-icon">▧</span>
+            <strong>ARRASTE UMA IMAGEM<br/>OU CLIQUE PARA ENVIAR</strong>
+            <small>PNG, JPG, WEBP</small>
+          </label>
+          <div class="range-row">
+            <span>OPACIDADE</span>
+            <input id="referenceOpacity" type="range" min="0" max="100" value="20" />
+            <output id="opacityValue">20%</output>
+          </div>
+        </section>
+
+        <section class="panel-section actions-section">
+          <h2>AÇÕES</h2>
+          <button id="saveConfigBtn" class="primary-action">SALVAR CONFIGURAÇÃO</button>
+          <button id="clearCanvasBtn" class="secondary-action">LIMPAR ELEMENTOS</button>
+        </section>
+      </aside>
+
+      <section class="editor">
+        <div class="canvas-toolbar">
+          <div class="tool-group">
+            <button class="tool active" id="selectTool" title="Selecionar">↖</button>
+            <button class="tool" id="textTool" title="Adicionar texto">T</button>
+            <button class="tool" id="imageTool" title="Adicionar imagem">▧</button>
+            <button class="tool" id="shapeTool" title="Adicionar forma">○</button>
+            <button class="tool" id="layersTool" title="Camadas">▱</button>
+          </div>
+          <div class="tool-group">
+            <button class="tool" id="zoomOutBtn" title="Diminuir zoom">−</button>
+            <button class="tool" id="zoomInBtn" title="Aumentar zoom">＋</button>
+            <button class="tool" id="rotateLeftBtn" title="Rotacionar à esquerda">↺</button>
+            <button class="tool" id="rotateRightBtn" title="Rotacionar à direita">↻</button>
+          </div>
+          <div class="grid-control">GRADE <label class="switch"><input id="gridToggle" type="checkbox" checked /><span></span></label></div>
+        </div>
+
+        <div id="canvasViewport" class="canvas-viewport">
+          <div id="referenceOverlay" class="reference-overlay" aria-hidden="true"></div>
+          <svg id="designCanvas" class="design-canvas" viewBox="0 0 1200 760" role="application" aria-label="Canvas de edição do uniforme">
+            <defs>
+              <pattern id="dotGrid" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1" fill="#8d99a8" opacity=".28"/></pattern>
+              <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#000" flood-opacity=".28"/></filter>
+
+              <!-- Product clip masks: artwork is physically constrained to the technical silhouette. -->
+              <clipPath id="frontGarmentClip" clipPathUnits="userSpaceOnUse">
+                <path transform="translate(35 42) scale(1.02)" d="M145 58 C158 70 180 79 210 79 C240 79 262 70 275 58 L318 88 L376 120 C394 130 404 148 407 170 L412 222 L329 232 L321 191 L302 185 L309 466 C276 475 243 480 210 480 C177 480 144 475 111 466 L118 185 L99 191 L91 232 L8 222 L13 170 C16 148 26 130 44 120 L102 88 Z"/>
+              </clipPath>
+              <clipPath id="backGarmentClip" clipPathUnits="userSpaceOnUse">
+                <path transform="translate(585 42) scale(1.02)" d="M145 58 C158 70 180 79 210 79 C240 79 262 70 275 58 L318 88 L376 120 C394 130 404 148 407 170 L412 222 L329 232 L321 191 L302 185 L309 466 C276 475 243 480 210 480 C177 480 144 475 111 466 L118 185 L99 191 L91 232 L8 222 L13 170 C16 148 26 130 44 120 L102 88 Z"/>
+              </clipPath>
+            </defs>
+
+            <rect class="canvas-bg" x="0" y="0" width="1200" height="760" fill="#eef0f2"/>
+            <rect id="gridLayer" x="0" y="0" width="1200" height="760" fill="url(#dotGrid)"/>
+
+            <g id="productLayer" filter="url(#softShadow)"></g>
+            <g id="artworkLayer"></g>
+            <g id="selectionLayer" pointer-events="none"></g>
+          </svg>
+        </div>
+
+        <div class="canvas-status">
+          <div class="selection-readout" id="selectionReadout">NENHUM ELEMENTO SELECIONADO</div>
+          <div class="zoom-readout"><button id="zoomMinus">−</button><span id="zoomValue">100%</span><button id="zoomPlus">＋</button></div>
+        </div>
+      </section>
+
+      <aside class="sidebar right-panel" aria-label="Elementos e camadas">
+        <div class="tabs">
+          <button class="tab active" data-tab="elements">ELEMENTOS</button>
+          <button class="tab" data-tab="mine">MEUS ELEMENTOS</button>
+        </div>
+
+        <section id="elementsTab" class="element-panel">
+          <div class="category-tabs">
+            <button class="category active" data-category="patterns">✥<span>PADRÕES</span></button>
+            <button class="category" data-category="shields">⬡<span>ESCUDOS</span></button>
+            <button class="category" data-category="numbers">1<span>NÚMEROS</span></button>
+            <button class="category" data-category="names">P<span>NOMES</span></button>
+            <button class="category" data-category="sponsors">⌁<span>PATROCÍNIOS</span></button>
+          </div>
+
+          <div id="patternGrid" class="pattern-grid">
+            <button class="pattern-card selected" data-pattern="bolt-a"><svg viewBox="0 0 100 70"><path d="M5 55 L60 5 L38 35 L92 14 L50 48 L74 38 L25 65 Z"/></svg></button>
+            <button class="pattern-card" data-pattern="bolt-b"><svg viewBox="0 0 100 70"><path d="M5 58 L75 10 L40 45 L95 20 L55 60 L70 38 L18 65 Z"/></svg></button>
+            <button class="pattern-card" data-pattern="slashes"><svg viewBox="0 0 100 70"><path d="M8 60 L80 5 L90 10 L22 65 Z M25 60 L95 16 L98 22 L38 65 Z"/></svg></button>
+            <button class="pattern-card" data-pattern="rain"><svg viewBox="0 0 100 70"><path d="M0 50 L70 0 L5 60 M18 70 L88 10 L28 70 M48 70 L100 25" fill="none" stroke="currentColor" stroke-width="4"/></svg></button>
+            <button class="pattern-card" data-pattern="wing"><svg viewBox="0 0 100 70"><path d="M5 58 L85 15 L50 45 L98 32 L48 66 Z"/></svg></button>
+            <button class="pattern-card" data-pattern="zig"><svg viewBox="0 0 100 70"><path d="M10 62 L45 8 L42 40 L85 15 L56 58 L95 45 L45 68 Z"/></svg></button>
+          </div>
+
+          <button id="loadPatternBtn" class="wide-btn">CARREGAR PADRÃO</button>
+        </section>
+
+        <section class="layers-section">
+          <div class="section-title-row"><h2>CAMADAS</h2><span id="layerCount">0</span></div>
+          <div id="layersList" class="layers-list"></div>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-brand"><strong>LOCK{AID}</strong><span>POWERED BY RETEAR</span></div>
+      <div class="export-actions">
+        <button id="exportSvgBtn">⌑ EXPORTAR SVG</button>
+        <button id="exportPngBtn">▧ EXPORTAR PNG</button>
+        <button id="exportJsonBtn">▱ EXPORTAR JSON</button>
+      </div>
+      <button id="nextBtn" class="next-btn">PRÓXIMO: FINALIZAR <span>→</span></button>
+    </footer>
+  </div>
+
+  <input id="imageElementInput" type="file" accept="image/*" hidden />
+  <script src="garment-model/garment-model.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+/* STYLE LAB — Technical Garment Model V1
+   This stylesheet controls ONLY the industrial garment silhouette.
+   Keep it independent from the application UI so pattern work never breaks UX styles. */
+:root{
+  --gm-outline:#1f2730;
+  --gm-seam:#2b333c;
+  --gm-shadow:rgba(7,12,20,.18);
+  --gm-paper:#f7f7f5;
+}
+.garment-model{overflow:visible}
+.garment-model .gm-base{fill:var(--gm-primary,#173f8f);stroke:var(--gm-outline);stroke-width:3;stroke-linejoin:round}
+.garment-model .gm-secondary{fill:var(--gm-secondary,#e31e3f)}
+.garment-model .gm-detail{stroke:var(--gm-detail,#00c3ff)}
+.garment-model .gm-outline{fill:none;stroke:var(--gm-outline);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.garment-model .gm-seam{fill:none;stroke:var(--gm-seam);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1.5 2.2;opacity:.92}
+.garment-model .gm-panel{fill:none;stroke:#0e1520;stroke-width:2.2;opacity:.85}
+.garment-model .gm-collar-outer{fill:#111923;stroke:var(--gm-outline);stroke-width:2.4}
+.garment-model .gm-collar-inner{fill:#d9dde3;stroke:var(--gm-outline);stroke-width:1.8}
+.garment-model .gm-highlight{fill:#fff;opacity:.08}
+.garment-model .gm-shadow{fill:#000;opacity:.08}
+.garment-model .gm-pattern{pointer-events:none}
+.garment-model .gm-zone{cursor:pointer}
+.garment-model .gm-zone.is-selected{filter:drop-shadow(0 0 0.7px #b8ff00) drop-shadow(0 0 8px rgba(184,255,0,.6))}
+.garment-model[data-fit="slim"] .gm-body-scale{transform:translate(18px,0) scale(.915,1);transform-box:fill-box;transform-origin:center top}
+.garment-model[data-fit="relaxed"] .gm-body-scale{transform:translate(-12px,0) scale(1.075,1);transform-box:fill-box;transform-origin:center top}
+.garment-model[data-sleeve="long"] .gm-short-sleeve{display:none}
+.garment-model[data-sleeve="short"] .gm-long-sleeve{display:none}
+.garment-model[data-collar="v"] .gm-collar-round{display:none}
+.garment-model[data-collar="round"] .gm-collar-v{display:none}
